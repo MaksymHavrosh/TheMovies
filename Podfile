@@ -8,5 +8,6 @@ target 'TheMovies' do
   # Pods for TheMovies
 
   pod 'Alamofire'
+  pod 'AlamofireImage'
 
 end
