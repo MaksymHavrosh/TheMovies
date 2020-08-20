@@ -15,6 +15,7 @@ class PopularMoviesTableViewController: UITableViewController {
     private var alert = UIAlertController()
     
     private var movies = [Movie]()
+    private var selectedMovie: Movie?
     private var page = 1
     
     
@@ -47,11 +48,26 @@ class PopularMoviesTableViewController: UITableViewController {
         return cell
     }
     
+    //MARK: - Segue
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if let vc = segue.destination as? DetailViewController {
+            vc.movie = selectedMovie
+        }
+    }
+    
 }
 
 //MARK: - UITableViewDelegate
 
 extension PopularMoviesTableViewController {
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        selectedMovie = movies[indexPath.row]
+        self.performSegue(withIdentifier: "ShowDetails", sender: self)
+    }
     
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         
@@ -69,10 +85,8 @@ private extension PopularMoviesTableViewController {
     func getPopularMoviesFromServer() {
         
         ServerManager.getPopularMovies(page: page) { (movies) in
-            
             self.movies.append(contentsOf: movies)
             self.tableView.reloadData()
-            print(movies)
         }
     }
     

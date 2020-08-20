@@ -11,12 +11,12 @@ import Alamofire
 
 struct ServerManager {
     
-    private static let baseURL = "https://api.themoviedb.org/3/"
+    private static let baseURL = "https://api.themoviedb.org/3/movie/"
     private static let apiKey = "987e8b58a6ddfe9495c940f6ab2c12eb"
     
     static func getPopularMovies(page: Int, success: @escaping ([Movie]) -> Void) {
         
-        AF.request(baseURL + "movie/top_rated?api_key=" + apiKey + "&page=" + "\(page)",
+        AF.request(baseURL + "top_rated?api_key=" + apiKey + "&page=" + "\(page)",
                    method: .get,
                    encoding: URLEncoding.default).responseJSON { (response) in
                     
@@ -31,6 +31,30 @@ struct ServerManager {
                             movies.append(movie)
                         }
                         success(movies)
+                        
+                    case .failure(let error):
+                        print(error)
+                    }
+        }
+    }
+    
+    static func getVideosByMovieId(id: Int, success: @escaping ([Video]) -> Void) {
+        
+        AF.request(baseURL + "\(id)" + "/videos?api_key=" + apiKey,
+                   method: .get,
+                   encoding: URLEncoding.default).responseJSON { (response) in
+                    
+                    switch response.result {
+                    case .success(let value):
+                        
+                        guard let value = value as? [String: Any], let results = value["results"] as? [[String: Any]] else { return }
+                        var videos = [Video]()
+                        
+                        for videoDictionary in results {
+                            let video = Video(videoDictionary)
+                            videos.append(video)
+                        }
+                        success(videos)
                         
                     case .failure(let error):
                         print(error)
