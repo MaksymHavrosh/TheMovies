@@ -51,7 +51,7 @@
                                 <rect key="frame" x="0.0" y="88" width="414" height="725"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Видеоролики" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qTp-Ig-qaW">
-                                        <rect key="frame" x="40" y="257" width="414" height="21"/>
+                                        <rect key="frame" x="40" y="257" width="334" height="21"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -113,11 +113,11 @@
                                     <constraint firstItem="xQR-u7-alH" firstAttribute="top" secondItem="JXX-Ap-zD2" secondAttribute="bottom" constant="10" id="5po-e8-qDN"/>
                                     <constraint firstItem="Vok-iV-9LR" firstAttribute="trailing" secondItem="JXX-Ap-zD2" secondAttribute="trailing" constant="20" id="5ri-fO-ygM"/>
                                     <constraint firstItem="Vok-iV-9LR" firstAttribute="bottom" secondItem="qen-ub-7SX" secondAttribute="bottom" priority="250" constant="10" id="Baj-l7-zDB"/>
-                                    <constraint firstItem="qTp-Ig-qaW" firstAttribute="trailing" secondItem="Vok-iV-9LR" secondAttribute="trailing" constant="40" id="C0e-RT-usV"/>
                                     <constraint firstItem="EyS-sn-pgX" firstAttribute="top" secondItem="xQR-u7-alH" secondAttribute="bottom" constant="30" id="Goz-Tw-aNa"/>
                                     <constraint firstAttribute="bottom" secondItem="qen-ub-7SX" secondAttribute="bottom" priority="250" constant="10" id="KCy-Jc-u7s"/>
                                     <constraint firstItem="y4O-YJ-6iu" firstAttribute="top" secondItem="qTp-Ig-qaW" secondAttribute="bottom" constant="20" id="MQj-CA-b0c"/>
                                     <constraint firstItem="qTp-Ig-qaW" firstAttribute="top" secondItem="EyS-sn-pgX" secondAttribute="bottom" constant="30" id="TXl-GQ-usi"/>
+                                    <constraint firstItem="1Mg-Lg-3yb" firstAttribute="trailing" secondItem="qTp-Ig-qaW" secondAttribute="trailing" constant="40" id="Wcs-JE-Izx"/>
                                     <constraint firstItem="Vok-iV-9LR" firstAttribute="trailing" secondItem="xQR-u7-alH" secondAttribute="trailing" constant="20" id="aou-pU-IGH"/>
                                     <constraint firstItem="qTp-Ig-qaW" firstAttribute="leading" secondItem="Vok-iV-9LR" secondAttribute="leading" constant="40" id="egU-o0-2u2"/>
                                     <constraint firstItem="xQR-u7-alH" firstAttribute="leading" secondItem="Vok-iV-9LR" secondAttribute="leading" constant="20" id="eqr-eN-Wv4"/>

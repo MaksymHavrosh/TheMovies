@@ -13,10 +13,11 @@ struct ServerManager {
     
     private static let baseURL = "https://api.themoviedb.org/3/movie/"
     private static let apiKey = "987e8b58a6ddfe9495c940f6ab2c12eb"
+    private static let language = "ru-RU"
     
     static func getPopularMovies(page: Int, success: @escaping ([Movie]) -> Void) {
         
-        AF.request(baseURL + "top_rated?api_key=" + apiKey + "&page=" + "\(page)",
+        AF.request(baseURL + "top_rated?api_key=" + apiKey + "&language=" + language + "&page=" + "\(page)",
                    method: .get,
                    encoding: URLEncoding.default).responseJSON { (response) in
                     
@@ -40,7 +41,7 @@ struct ServerManager {
     
     static func getVideosByMovieId(id: Int, success: @escaping ([Video]) -> Void) {
         
-        AF.request(baseURL + "\(id)" + "/videos?api_key=" + apiKey,
+        AF.request(baseURL + "\(id)" + "/videos?api_key=" + apiKey + "&language=" + language,
                    method: .get,
                    encoding: URLEncoding.default).responseJSON { (response) in
                     
