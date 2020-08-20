@@ -7,12 +7,8 @@
 //
 
 import UIKit
-import Network
 
 class PopularMoviesTableViewController: UITableViewController {
-    
-    private let networkMonitor = NWPathMonitor()
-    private var alert = UIAlertController()
     
     private var movies = [Movie]()
     private var selectedMovie: Movie?
@@ -23,9 +19,6 @@ class PopularMoviesTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        createAlertController()
-        addPathUpdateHandler()
         getPopularMoviesFromServer()
     }
     
@@ -88,33 +81,6 @@ private extension PopularMoviesTableViewController {
             self.movies.append(contentsOf: movies)
             self.tableView.reloadData()
         }
-    }
-    
-    func createAlertController() {
-        
-        alert = UIAlertController(title: NSLocalizedString("Ошибка!", comment: ""), message: NSLocalizedString("Нет соединения", comment: ""), preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: NSLocalizedString("Настройки", comment: ""), style: .default, handler: { _ in
-            
-            guard let url = URL(string: UIApplication.openSettingsURLString) else { return }
-            UIApplication.shared.open(url, options: [:])
-        }))
-    }
-    
-    func addPathUpdateHandler() {
-        
-        networkMonitor.pathUpdateHandler = { path in
-            DispatchQueue.main.async {
-                
-                if path.status == .unsatisfied, !self.alert.isFirstResponder {
-                    self.present(self.alert, animated: true, completion: nil)
-                    
-                } else {
-                    self.alert.dismiss(animated: true, completion: nil)
-                    self.tableView.reloadData()
-                }
-            }
-        }
-        networkMonitor.start(queue: DispatchQueue.main)
     }
     
 }
