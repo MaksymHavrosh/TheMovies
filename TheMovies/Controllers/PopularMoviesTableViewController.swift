@@ -33,8 +33,8 @@ class PopularMoviesTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let movie = movies[indexPath.row]
         
+        let movie = movies[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: "MovieCell", for: indexPath)
         cell.textLabel?.text = movie.title
         

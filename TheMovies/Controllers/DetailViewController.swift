@@ -22,7 +22,7 @@ class DetailViewController: UIViewController {
     var videos = [Video]()
     var selectVideo: Video?
     
-    let fetchedResultsController = FavotiteMoviesTableViewController().fetchedResultsController
+    var fetchedResultsController = FavotiteMoviesTableViewController().fetchedResultsController
     
     //MARK: - LifeCycle
     
@@ -81,7 +81,6 @@ extension DetailViewController: UITableViewDataSource {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "VideoCell", for: indexPath)
         cell.textLabel?.text = videos[indexPath.row].name
-        
         return cell
     }
     
@@ -116,6 +115,7 @@ private extension DetailViewController {
             let nserror = error as NSError
             fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
         }
+        fetchedResultsController = FavotiteMoviesTableViewController().fetchedResultsController
     }
     
 }
@@ -155,7 +155,6 @@ private extension DetailViewController {
         }
         
         guard let i = index else { return nil }
-        
         let context = fetchedResultsController.managedObjectContext
         context.delete(fetchedResultsController.fetchedObjects?[i] as! NSManagedObject)
         

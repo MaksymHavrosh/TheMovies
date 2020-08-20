@@ -9,41 +9,12 @@
 import UIKit
 import CoreData
 
-class FavotiteMoviesTableViewController: UITableViewController, NSFetchedResultsControllerDelegate {
+class FavotiteMoviesTableViewController: UITableViewController {
     
     private var favoriteMovies = [FavoriteMovie]()
     private var selectedMovie: FavoriteMovie?
     
     var _fetchedResultsController: NSFetchedResultsController<NSFetchRequestResult>?
-    var fetchedResultsController: NSFetchedResultsController<NSFetchRequestResult> {
-        
-        if _fetchedResultsController != nil {
-            return _fetchedResultsController!
-        }
-        
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>()
-        let description = NSEntityDescription.entity(forEntityName: "FavoriteMovie", in: persistentContainer.viewContext)
-        fetchRequest.entity = description
-        
-        let titleDescriptor = NSSortDescriptor.init(key: "title", ascending: true)
-        fetchRequest.sortDescriptors = [titleDescriptor]
-        
-        let aFetchedResultsController = NSFetchedResultsController.init(fetchRequest: fetchRequest,
-                                                                        managedObjectContext: self.persistentContainer.viewContext,
-                                                                        sectionNameKeyPath: nil,
-                                                                        cacheName: nil)
-        aFetchedResultsController.delegate = self
-        _fetchedResultsController = aFetchedResultsController
-        
-        do {
-            try _fetchedResultsController!.performFetch()
-        } catch {
-             let nserror = error as NSError
-             fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
-        }
-        
-        return _fetchedResultsController!
-    }
     
     //MARK: - LifeCycle
     
@@ -109,6 +80,41 @@ extension FavotiteMoviesTableViewController {
         
         selectedMovie = favoriteMovies[indexPath.row]
         self.performSegue(withIdentifier: "ShowDetails", sender: self)
+    }
+    
+}
+
+//MARK: - NSFetchedResultsControllerDelegate
+
+extension FavotiteMoviesTableViewController: NSFetchedResultsControllerDelegate {
+    
+    var fetchedResultsController: NSFetchedResultsController<NSFetchRequestResult> {
+        
+        if _fetchedResultsController != nil {
+            return _fetchedResultsController!
+        }
+        
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>()
+        let description = NSEntityDescription.entity(forEntityName: "FavoriteMovie", in: persistentContainer.viewContext)
+        let titleDescriptor = NSSortDescriptor.init(key: "title", ascending: true)
+        
+        fetchRequest.entity = description
+        fetchRequest.sortDescriptors = [titleDescriptor]
+        
+        let aFetchedResultsController = NSFetchedResultsController.init(fetchRequest: fetchRequest,
+                                                                        managedObjectContext: self.persistentContainer.viewContext,
+                                                                        sectionNameKeyPath: nil,
+                                                                        cacheName: nil)
+        aFetchedResultsController.delegate = self
+        _fetchedResultsController = aFetchedResultsController
+        
+        do {
+            try _fetchedResultsController!.performFetch()
+        } catch {
+             let nserror = error as NSError
+             fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
+        }
+        return _fetchedResultsController!
     }
     
 }
